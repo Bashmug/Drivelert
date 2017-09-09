@@ -4,16 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PointF;
 import android.graphics.Typeface;
-import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -21,7 +17,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -40,13 +35,8 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.example.akarshan.drivelert.ui.camera.CameraSourcePreview;
 import com.example.akarshan.drivelert.ui.camera.GraphicOverlay;
-import com.google.android.gms.vision.face.Landmark;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Activity for the face tracker app.  This app detects faces with the rear facing camera, and draws
@@ -58,18 +48,18 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     private CameraSource mCameraSource = null;
     private Button end_button;
     private ToggleButton n_mode;
-    private TextView tv,tv_1,tv_2;
-    static int count = 0,count1=0;
+    private TextView tv, tv_1, tv_2;
+    static int count = 0, count1 = 0;
     private LinearLayout layout;
     private MediaPlayer mp;
     private CameraSourcePreview mPreview;
     private GraphicOverlay mGraphicOverlay;
     private String start_2;
-    private String key ="facetrackeractivity";
+    private String key = "facetrackeractivity";
     private String key_2 = "akarshan's project";
     private String key_3 = "hello";
     private String key_4 = "senstivity";
-    private int s_status,s_time;
+    private int s_status, s_time;
     private static final int RC_HANDLE_GMS = 9001;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
@@ -78,6 +68,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     //==============================================================================================
     // Activity Methods
     //==============================================================================================
+
     /**
      * Initializes the UI and initiates the creation of a face detector.
      */
@@ -87,74 +78,53 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay) findViewById(R.id.faceOverlay);
-        end_button = (Button)findViewById(R.id.button);
-        layout = (LinearLayout)findViewById(R.id.topLayout);
-        n_mode=(ToggleButton)findViewById(R.id.toggleButton);
+        end_button = (Button) findViewById(R.id.button);
+        //layout = (LinearLayout) findViewById(R.id.topLayout);
+        //n_mode = (ToggleButton) findViewById(R.id.toggleButton);
         n_mode.setTextOn("N-Mode ON");
         n_mode.setText("N-Mode");
         n_mode.setTextOff("N-Mode OFF");
         n_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
+                if (isChecked) {
                     mPreview.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(),"Increase Brightness to maximum for higher accuracy",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Increase Brightness to maximum for higher accuracy", Toast.LENGTH_LONG).show();
 
-                }
-                else
-                {
+                } else {
                     mPreview.setVisibility(View.VISIBLE);
                 }
             }
         });
-        tv = (TextView)findViewById(R.id.textView3);
-        tv_1 = (TextView)findViewById(R.id.textView4);
-        final AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        //tv = (TextView) findViewById(R.id.textView3);
+        //tv_1 = (TextView) findViewById(R.id.textView4);
+        final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int c = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        if(c==0)
-        {
-            Toast.makeText(getApplicationContext(),"Volume is MUTE",Toast.LENGTH_LONG).show();
+        if (c == 0) {
+            Toast.makeText(getApplicationContext(), "Volume is MUTE", Toast.LENGTH_LONG).show();
         }
         Intent intent_2 = getIntent();
         final String start = intent_2.getStringExtra(key_2);
-        start_2=start;
+        start_2 = start;
         String time_info = intent_2.getStringExtra(key_4);
         s_status = Integer.parseInt(time_info);
-        if(s_status == 0)
-        {
+        if (s_status == 0) {
             s_time = 500;
-        }
-        else if(s_status == 1)
-        {
+        } else if (s_status == 1) {
             s_time = 750;
-        }
-        else if(s_status == 2)
-        {
+        } else if (s_status == 2) {
             s_time = 1000;
-        }
-        else if(s_status == 3)
-        {
+        } else if (s_status == 3) {
             s_time = 1250;
-        }
-        else if(s_status == 4)
-        {
+        } else if (s_status == 4) {
             s_time = 1500;
-        }
-        else if(s_status == 5)
-        {
+        } else if (s_status == 5) {
             s_time = 1750;
-        }
-        else if(s_status == 6)
-        {
+        } else if (s_status == 6) {
             s_time = 2000;
-        }
-        else if(s_status == 7)
-        {
+        } else if (s_status == 7) {
             s_time = 2250;
-        }
-        else if(s_status == 8)
-        {
+        } else if (s_status == 8) {
             s_time = 2500;
         }
 
@@ -166,11 +136,11 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         end_button.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent next = new Intent(FaceTrackerActivity.this,end.class);
-                count=0;
-                count1=0;
-                next.putExtra(key_3,start);
-                next.putExtra(key,tv_1.getText());
+                Intent next = new Intent(FaceTrackerActivity.this, EndActivity.class);
+                count = 0;
+                count1 = 0;
+                next.putExtra(key_3, start);
+                next.putExtra(key, tv_1.getText());
                 next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(next);
                 FaceTrackerActivity.this.finish();
@@ -179,8 +149,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         });
 
 
-
-                // Check for the camera permission before accessing the camera.  If the
+        // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
@@ -189,7 +158,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             requestCameraPermission();
         }
     }
-    
+
     private void requestCameraPermission() {
         Log.w(TAG, "Camera permission is not granted. Requesting permission");
 
@@ -238,7 +207,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             // isOperational() can be used to check if the required native library is currently
             // available.  The detector will automatically become operational once the library
             // download completes on device.
-            Toast.makeText(getApplicationContext(),"Dependencies are not yet available. ",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Dependencies are not yet available. ", Toast.LENGTH_LONG).show();
             Log.w(TAG, "Face detector dependencies are not yet available.");
         }
 
@@ -250,7 +219,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
     }
 
-    
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -263,7 +232,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         super.onPause();
         mPreview.stop();
     }
-   
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -326,29 +295,27 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         }
     }
 
-    public static int incrementer()
-    {
+    public static int incrementer() {
         count++;
-        return(count);
-    }
-    public static int incrementer_1()
-    {
-        count1++;
-        return(count1);
-    }
-    public static int get_incrementer()
-    {
-        return(count);
+        return (count);
     }
 
-    public void play_media()
-    {
+    public static int incrementer_1() {
+        count1++;
+        return (count1);
+    }
+
+    public static int get_incrementer() {
+        return (count);
+    }
+
+    public void play_media() {
         stop_playing();
         mp = MediaPlayer.create(this, R.raw.alarm);
         mp.start();
     }
-    public void stop_playing()
-    {
+
+    public void stop_playing() {
         if (mp != null) {
             mp.stop();
             mp.release();
@@ -356,8 +323,8 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         }
     }
 
-    public void alert_box()
-    {   play_media();
+    public void alert_box() {
+        play_media();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -413,17 +380,16 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         }
 
 
-        int state_i,state_f=-1;
-        long start,end=System.currentTimeMillis();
-        long begin,stop;
+        int state_i, state_f = -1;
+        long start, end = System.currentTimeMillis();
+        long begin, stop;
         int c;
 
         @Override
         public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
             mOverlay.add(mFaceGraphic);
             mFaceGraphic.updateFace(face);
-            if (flag == 0)
-            {
+            if (flag == 0) {
                 eye_tracking(face);
             }
         }
@@ -431,7 +397,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         @Override
         public void onMissing(FaceDetector.Detections<Face> detectionResults) {
             mOverlay.remove(mFaceGraphic);
-            setText(tv_1,"Face Missing");
+            setText(tv_1, "Face Missing");
 
         }
 
@@ -440,7 +406,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             mOverlay.remove(mFaceGraphic);
         }
 
-        private void setText(final TextView text,final String value){
+        private void setText(final TextView text, final String value) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -449,33 +415,25 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             });
         }
 
-        private void eye_tracking(Face face)
-        {
+        private void eye_tracking(Face face) {
             float l = face.getIsLeftEyeOpenProbability();
             float r = face.getIsRightEyeOpenProbability();
-            if(l<0.50 && r<0.50)
-            {
+            if (l < 0.50 && r < 0.50) {
                 state_i = 0;
-            }
-            else
-            {
+            } else {
                 state_i = 1;
             }
-            if(state_i != state_f)
-            {
+            if (state_i != state_f) {
                 start = System.currentTimeMillis();
-                if(state_f==0)
-                {
+                if (state_f == 0) {
                     c = incrementer_1();
 
                 }
                 end = start;
                 stop = System.currentTimeMillis();
-            }
-            else if (state_i == 0 && state_f ==0 ) {
+            } else if (state_i == 0 && state_f == 0) {
                 begin = System.currentTimeMillis();
-                if(begin - stop > s_time )
-                {
+                if (begin - stop > s_time) {
                     c = incrementer();
                     alert_box();
                     flag = 1;
@@ -485,27 +443,24 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             state_f = state_i;
             status();
         }
-        public void status()
-        {
+
+        public void status() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     int s = get_incrementer();
-                    if(s<5)
-                    {
-                        setText(tv_1,"Active");
+                    if (s < 5) {
+                        setText(tv_1, "Active");
                         tv_1.setTextColor(Color.GREEN);
                         tv_1.setTypeface(Typeface.DEFAULT_BOLD);
                     }
-                    if(s>4 )
-                    {
-                        setText(tv_1,"Sleepy");
+                    if (s > 4) {
+                        setText(tv_1, "Sleepy");
                         tv_1.setTextColor(Color.YELLOW);
                         tv_1.setTypeface(Typeface.DEFAULT_BOLD);
                     }
-                    if(s>8)
-                    {
-                        setText(tv_1,"Drowsy");
+                    if (s > 8) {
+                        setText(tv_1, "Drowsy");
                         tv_1.setTextColor(Color.RED);
                         tv_1.setTypeface(Typeface.DEFAULT_BOLD);
                     }
@@ -514,16 +469,17 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                 }
             });
 
-    }
+        }
 
     }
+
     @Override
     public void onBackPressed() {
-        Intent next = new Intent(FaceTrackerActivity.this,end.class);
-        count=0;
-        count1=0;
-        next.putExtra(key_3,start_2);
-        next.putExtra(key,tv_1.getText());
+        Intent next = new Intent(FaceTrackerActivity.this, EndActivity.class);
+        count = 0;
+        count1 = 0;
+        next.putExtra(key_3, start_2);
+        next.putExtra(key, tv_1.getText());
         next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(next);
         FaceTrackerActivity.this.finish();

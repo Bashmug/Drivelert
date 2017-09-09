@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class help extends AppCompatActivity {
+public class Help extends AppCompatActivity {
 
   
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -53,7 +53,7 @@ public class help extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-\
+
     public static class PlaceholderFragment extends Fragment {
         
         private static final String ARG_SECTION_NUMBER = "section_number";

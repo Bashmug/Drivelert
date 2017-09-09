@@ -17,4 +17,14 @@
     <string name="medium_recommended">Medium(Recommended)</string>
     <string name="low">Low</string>
     <string name="time_senstivity">Time Senstivity</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="email">Email:</string>
+    <string name="drivelert_gmail_com">drivelert@gmail.com</string>
+    <string name="facebook">Facebook:</string>
+    <string name="facebook_com_drivelert">facebook.com/drivelert</string>
+    <string name="twitter">Twitter:</string>
+    <string name="twitter_com_drivelert">twitter.com/drivelert_</string>
+    <string name="start">START</string>
+    <string name="no_preview">NO PREVIEW</string>
+    <string name="hands_free_mode">Hands-Free Mode</string>
 </resources>

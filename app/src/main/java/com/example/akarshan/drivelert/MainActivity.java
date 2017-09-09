@@ -1,43 +1,34 @@
 package com.example.akarshan.drivelert;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.view.MotionEvent;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.SeekBar;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FrameLayout frame;
-    Button agree,disagree;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        frame = (FrameLayout)findViewById(R.id.frame);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,new monitor_menu()).commit();
-        Toast.makeText(getApplicationContext(),"Swipe left for menu",Toast.LENGTH_SHORT).show();
+        frame = (FrameLayout) findViewById(R.id.frame);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MonitorMenu()).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -47,13 +38,13 @@ public class MainActivity extends FragmentActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         boolean isFirstTime = MyPreferences.isFirst(MainActivity.this);
-        if(isFirstTime == true)
-        {
-            Intent help = new Intent(MainActivity.this, help.class);
+        if (isFirstTime) {
+            Intent help = new Intent(MainActivity.this, Help.class);
             startActivity(help);
         }
 
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
@@ -70,8 +61,7 @@ public class MainActivity extends FragmentActivity
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Closing Application")
                     .setMessage("Are you sure you want to close this application?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                    {
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -81,7 +71,7 @@ public class MainActivity extends FragmentActivity
                     .setNegativeButton("No", null)
                     .show();
         }
-        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,9 +82,6 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -107,21 +94,18 @@ public class MainActivity extends FragmentActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame,new monitor_menu()).commit();
-        }
-        else if(id == R.id.help_page)
-        {
-            Intent hp = new Intent(MainActivity.this,help.class);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MonitorMenu()).commit();
+        } else if (id == R.id.help_page) {
+            Intent hp = new Intent(MainActivity.this, Help.class);
             startActivity(hp);
-        }
-      else if (id == R.id.nav_send) {
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame,new contactus()).commit();
+        } else if (id == R.id.nav_send) {
+            Intent intent = new Intent(MainActivity.this, AboutUs.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

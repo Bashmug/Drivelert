@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class end extends AppCompatActivity {
+public class EndActivity extends AppCompatActivity {
     Button proceed;
     TextView a,b,c;
     private String key ="facetrackeractivity";
@@ -27,10 +27,10 @@ public class end extends AppCompatActivity {
         proceed.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent next = new Intent(end.this,MainActivity.class);
+                Intent next = new Intent(EndActivity.this,MainActivity.class);
                 next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(next);
-                end.this.finish();
+                EndActivity.this.finish();
                 return false;
             }
         });
