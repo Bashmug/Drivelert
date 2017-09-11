@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         frame = (FrameLayout) findViewById(R.id.frame);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MonitorMenu()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame, new MonitorMenu(), "MonitorMenu").commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,12 +92,10 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MonitorMenu()).commit();
         } else if (id == R.id.help_page) {

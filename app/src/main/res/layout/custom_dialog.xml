@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/a"
+        android:gravity="center"
+        android:background="#DA5F6A"
+        android:src="@drawable/sleep"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="DROWSINESS DETECTED"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/text_dialog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:background="#DA5F6A"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="STOP ALARM"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

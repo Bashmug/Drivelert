@@ -27,5 +27,8 @@
     <color name="darkBackground">#424242</color>
     <color name="drawerBackground">#FFfafafa</color>
     <color name="rowBackground">#F2F2F2</color>
+    <color name="yellow">#ffff00</color>
+    <color name="green">#00FA9A</color>
+    <color name="red">#DA5F6A</color>
 
 </resources>

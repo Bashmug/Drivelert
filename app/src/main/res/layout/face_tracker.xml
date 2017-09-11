@@ -4,7 +4,7 @@
     android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="#03acbe"
     android:keepScreenOn="true"
     android:orientation="vertical">
 
@@ -34,42 +34,41 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-        <com.cuboid.cuboidcirclebutton.CuboidButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:textColor="#0097A7"
-            android:text="END"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:id="@+id/cuboidButton"
-            app:cub_color="#000"
-            app:cub_border_color="#0097A7"
-            />
 
         <com.cuboid.cuboidcirclebutton.CuboidButton
-            android:id="@+id/cuboidButton3"
+            android:id="@+id/button_end"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:text="END"
+            android:textColor="#0097A7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cub_border_color="#0097A7"
+            app:cub_color="#000" />
+
+        <com.cuboid.cuboidcirclebutton.CuboidButton
+            android:id="@+id/button_no_preview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/no_preview"
             android:textColor="#ff9966"
             android:textSize="10sp"
             android:textStyle="bold"
             app:cub_border_color="#ff9966"
-            app:cub_color="#000"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            app:cub_color="#000" />
 
         <com.cuboid.cuboidcirclebutton.CuboidButton
-            android:id="@+id/cuboidButton4"
+            android:id="@+id/button_status"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:textSize="10sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:textStyle="bold"
             app:cub_border_color="#FFE761"
-            app:cub_color="#ff0000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            app:cub_color="#00FA9A" />
 
     </RelativeLayout>
 
